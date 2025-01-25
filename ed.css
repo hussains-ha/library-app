@@ -1,0 +1,54 @@
+body {
+  color: white;
+  place-items: center;
+}
+
+:root {
+  background-color: rgb(27, 27, 27);
+  font-family: Arial;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  all: unset;
+  padding: 5px 15px;
+  margin: 10px;
+  background-color: rgb(60, 60, 60);
+  border-radius: 10px;
+  box-shadow: 0px 3px 5px 2px black;
+}
+
+button:hover {
+  background-color: rgb(80, 80, 80);
+  box-shadow: 0px 5px 7px 2px black;
+}
+
+th {
+  width: 15em;
+}
+
+table,
+td {
+  text-align: center;
+}
+
+table {
+  margin: 50px 0 100px 0px;
+}
+
+input {
+  border-radius: 5px;
+  margin: 0 10px 0px 10px;
+}
+
+input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+th {
+  border-bottom: 1px solid rgb(190, 190, 190);
+}
