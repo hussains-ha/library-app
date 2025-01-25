@@ -42,6 +42,7 @@ newBookButton.addEventListener("click", () => {
       haveReadInput.value
     );
     bookDisplay();
+    formContainer.removeChild(form)
     body.removeChild(formContainer);
     body.appendChild(newBookButton);
   });
