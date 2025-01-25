@@ -2,6 +2,8 @@ const myLibrary = [];
 
 const body = document.querySelector("body");
 
+
+
 //Adding A New Book Logic!
 const formContainer = document.createElement("div");
 formContainer.setAttribute("class", "form-container");
@@ -13,6 +15,7 @@ cancelButton.textContent = "Cancel";
 submitButton.textContent = "Submit";
 submitButton.type = "submit";
 body.appendChild(newBookButton);
+
 
 newBookButton.addEventListener("click", () => {
   body.removeChild(newBookButton);
@@ -31,7 +34,7 @@ newBookButton.addEventListener("click", () => {
   const haveReadInput = document.createElement("input");
   haveReadInput.setAttribute("type", "text");
   haveReadInput.setAttribute("id", "haveReadInput");
-  haveReadInput.setAttribute("placeholder", "Have Read");
+  haveReadInput.setAttribute("placeholder", "Have Read (Yes/No)");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -42,7 +45,7 @@ newBookButton.addEventListener("click", () => {
       haveReadInput.value
     );
     bookDisplay();
-    formContainer.removeChild(form)
+    formContainer.removeChild(form);
     body.removeChild(formContainer);
     body.appendChild(newBookButton);
   });
@@ -84,10 +87,20 @@ function Book(title, author, pages, haveRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.haveRead = haveRead;
+  this.haveRead = (String(haveRead).toLowerCase() === "yes");
   this.info = function () {
     return `${this.title}, ${this.author}, ${this.pages} pages, ${this.haveRead}`;
   };
+}
+
+Book.prototype.readStatus = function () { 
+    if(this.haveRead) { 
+        this.haveRead = false
+        return false; 
+    }else { 
+        this.haveRead = true
+        return true;
+    }
 }
 
 function addBookToLibrary(title, author, pages, haveRead) {
@@ -107,10 +120,12 @@ function bookDisplay() {
     const pageData = document.createElement("td");
     const readData = document.createElement("td");
     const deleteButt = document.createElement("button");
+    const changeReadButt = document.createElement("button")
+    changeReadButt.textContent = "Change Read Status"
     nameData.textContent = book.title;
     authorData.textContent = book.author;
     pageData.textContent = book.pages;
-    readData.textContent = book.haveRead;
+    readData.textContent = book.haveRead === true ? "Yes" : "No";
     deleteButt.textContent = "Delete Book";
     deleteButt.addEventListener("click", () => {
       const bookKey = book.key;
@@ -120,7 +135,15 @@ function bookDisplay() {
       });
     });
 
-    row.append(nameData, authorData, pageData, readData, deleteButt);
+    changeReadButt.addEventListener("click", () => { 
+        if(book.readStatus()) { 
+            readData.textContent = "Yes"
+        }else{ 
+            readData.textContent = "No"
+        }
+    })
+
+    row.append(nameData, authorData, pageData, readData, deleteButt, changeReadButt);
     table.appendChild(row);
   });
 }
